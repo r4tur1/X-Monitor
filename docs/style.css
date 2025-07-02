@@ -1,3 +1,58 @@
+/* Add these new styles */
+.trending-section {
+  background: rgba(26, 26, 26, 0.8);
+  padding: 1rem;
+  margin: 1rem auto;
+  width: 80%;
+  border-radius: 10px;
+  border-left: 4px solid #ff0000;
+}
+
+.trending-tags {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.trending-tags span {
+  background: #2a2a2a;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.trending-tags span:hover {
+  background: #ff0000;
+  transform: translateY(-3px);
+}
+
+/* Search Bar Animation */
+.search-bar-active {
+  transform: scale(1.02);
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.5) !important;
+}
+
+/* Pulse Animation */
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(255, 0, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+}
+
+/* Tweet Entry Animation */
+.tweet-enter {
+  animation: slideIn 0.5s forwards;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-50px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
 /* Base Dark Theme */
 body {
   background-color: #121212;
