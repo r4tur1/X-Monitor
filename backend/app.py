@@ -2,9 +2,10 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import tweepy
 import os
-
+from flask_cors import CORS  # Add this line
 app = Flask(__name__)
-CORS(app)
+CORS(app)  # Add this line
+
 
 # Get token from Render environment variables
 BEARER_TOKEN = os.environ.get('TWITTER_BEARER_TOKEN')
