@@ -6,7 +6,29 @@ body {
   margin: 0;
   padding: 0;
 }
+/* Add loading indicator styles */
+.loading-indicator {
+  display: none;
+  text-align: center;
+  margin: 20px;
+  color: #ff0000;
+  font-size: 1.2rem;
+}
 
+/* Improve existing styles */
+.tweet-container {
+  max-height: 60vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.search-container {
+  position: sticky;
+  top: 0;
+  background: #1a1a1a;
+  padding: 15px 0;
+  z-index: 100;
+}
 /* Header Styles */
 header {
   display: flex;
