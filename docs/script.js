@@ -1,6 +1,128 @@
-async function fetchTweets() {
-  const keyword = document.getElementById("keyword").value;
-  const response = await fetch(`https://your-python-backend.herokuapp.com/search?q=${keyword}`);
-  const tweets = await response.json();
-  document.getElementById("results").innerHTML = JSON.stringify(tweets);
+/* Base Dark Theme */
+body {
+  background-color: #121212;
+  color: #e0e0e0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Header Styles */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #1a1a1a;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.tool-name {
+  font-size: 2rem;
+  background: linear-gradient(90deg, #ff0000, #990000);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+}
+
+.github-pfp img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid #ff0000;
+  transition: all 0.3s ease;
+}
+
+.github-pfp img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px #ff0000;
+}
+
+/* Search Bar */
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin: 2rem;
+}
+
+.search-bar {
+  width: 60%;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 25px 0 0 25px;
+  background-color: #2a2a2a;
+  color: white;
+  font-size: 1rem;
+  outline: none;
+}
+
+.search-button {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 0 25px 25px 0;
+  background: linear-gradient(90deg, #ff0000, #990000);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.search-button:hover {
+  background: linear-gradient(90deg, #990000, #ff0000);
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+}
+
+/* Tweet Container */
+.tweet-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 0 auto;
+  width: 80%;
+  padding: 1rem;
+}
+
+.tweet {
+  background-color: #1e1e1e;
+  border-left: 4px solid #ff0000;
+  padding: 1rem;
+  border-radius: 0 8px 8px 0;
+  transition: all 0.3s ease;
+}
+
+.tweet:hover {
+  background-color: #2a2a2a;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+  transform: translateX(5px);
+}
+
+/* Next Page Button */
+.next-page {
+  display: block;
+  margin: 2rem auto;
+  padding: 0.8rem 2rem;
+  background: linear-gradient(90deg, #ff0000, #990000);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.next-page:hover {
+  background: linear-gradient(90deg, #990000, #ff0000);
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+  transform: translateY(-3px);
+}
+
+/* Animations */
+@keyframes glow {
+  0% { box-shadow: 0 0 5px rgba(255, 0, 0, 0.3); }
+  100% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.6); }
+}
+
+.tweet:hover {
+  animation: glow 1s infinite alternate;
 }
