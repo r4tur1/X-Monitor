@@ -2,7 +2,6 @@ const API_URL = "https://x-monitor.onrender.com";
 let currentPage = 1;
 let currentKeyword = "";
 
-// Main function to fetch tweets
 async function fetchTweets() {
   currentKeyword = document.getElementById("keyword").value.trim();
   if (!currentKeyword) return;
@@ -23,7 +22,6 @@ async function fetchTweets() {
   }
 }
 
-// Pagination function
 async function loadMore() {
   if (!currentKeyword) return;
   
@@ -36,50 +34,15 @@ async function loadMore() {
     appendTweets(tweets);
   } catch (error) {
     console.error("Error:", error);
-    currentPage--; // Revert page increment on failure
+    currentPage--;
   } finally {
     showLoading(false);
   }
 }
 
-// Helper functions
-function showLoading(show) {
-  document.getElementById("loading").style.display = show ? "block" : "none";
-}
-
+// Unified display function with animations
 function displayTweets(tweets) {
   const resultsDiv = document.getElementById("results");
-  resultsDiv.innerHTML = tweets.map(formatTweet).join("");
-}
-
-function appendTweets(tweets) {
-  const resultsDiv = document.getElementById("results");
-  resultsDiv.innerHTML += tweets.map(formatTweet).join("");
-}
-
-function formatTweet(tweet) {
-  return `
-    <div class="tweet">
-      <p>${tweet.text}</p>
-      <small>Likes: ${tweet.public_metrics?.like_count || 0}</small>
-    </div>
-  `;
-// Trending search handler
-function searchTrending(term) {
-  const searchBar = document.getElementById('keyword');
-  searchBar.value = term;
-  searchBar.classList.add('search-bar-active');
-  fetchTweets();
-}
-
-// Keyboard support (add this after your existing code)
-document.getElementById('keyword').addEventListener('keypress', (e) => {
-  if(e.key === 'Enter') fetchTweets();
-});
-
-// Add animation to new tweets
-function displayTweets(tweets) {
-  const resultsDiv = document.getElementById('results');
   resultsDiv.innerHTML = '';
   
   tweets.forEach((tweet, index) => {
@@ -88,8 +51,38 @@ function displayTweets(tweets) {
     tweetElement.style.animationDelay = `${index * 0.1}s`;
     tweetElement.innerHTML = `
       <p>${tweet.text}</p>
-      <small>❤️ ${tweet.likes} likes</small>
+      <small>❤️ ${tweet.public_metrics?.like_count || 0} likes</small>
     `;
     resultsDiv.appendChild(tweetElement);
   });
 }
+
+function appendTweets(tweets) {
+  const resultsDiv = document.getElementById("results");
+  tweets.forEach((tweet, index) => {
+    const tweetElement = document.createElement('div');
+    tweetElement.className = 'tweet tweet-enter';
+    tweetElement.style.animationDelay = `${index * 0.1}s`;
+    tweetElement.innerHTML = `
+      <p>${tweet.text}</p>
+      <small>❤️ ${tweet.public_metrics?.like_count || 0} likes</small>
+    `;
+    resultsDiv.appendChild(tweetElement);
+  });
+}
+
+function showLoading(show) {
+  document.getElementById("loading").style.display = show ? "block" : "none";
+}
+
+// Trending and keyboard support
+function searchTrending(term) {
+  const searchBar = document.getElementById('keyword');
+  searchBar.value = term;
+  searchBar.classList.add('search-bar-active');
+  fetchTweets();
+}
+
+document.getElementById('keyword').addEventListener('keypress', (e) => {
+  if(e.key === 'Enter') fetchTweets();
+});
