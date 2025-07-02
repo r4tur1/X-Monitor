@@ -6,7 +6,8 @@ from dotenv import load_dotenv
 load_dotenv()
 app = Flask(__name__)
 
-client = tweepy.Client(bearer_token=os.getenv("TWITTER_BEARER_TOKEN"))
+bearer_token = os.getenv("TWITTER_BEARER_TOKEN") or "your_token_here_directly"
+client = tweepy.Client(bearer_token=bearer_token)
 
 @app.route('/search')
 def search():
