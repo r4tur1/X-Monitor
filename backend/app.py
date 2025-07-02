@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).parent))
 sys.path.insert(0, "/opt/render/project/src/backend") 
 import tweepy
 import os
