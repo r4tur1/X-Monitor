@@ -1,4 +1,5 @@
-flask
-gunicorn
-tweepy
-python-dotenv 
+flask==2.3.2
+flask-cors==4.0.0
+tweepy==4.14.0
+python-dotenv==1.0.0
+gunicorn==20.1.0
