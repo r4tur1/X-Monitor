@@ -6,7 +6,7 @@
   <title>X-Monitor</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* Base Dark Theme with Animated Background */
+    /* Base Dark Theme */
     body {
       background-color: #121212;
       color: #e0e0e0;
@@ -14,385 +14,397 @@
       margin: 0;
       padding: 0;
       overflow-x: hidden;
-      position: relative;
     }
-    
-    /* Animated Fire Background */
-    body::before {
-      content: "";
+
+    /* Animated Ember Particles */
+    .ember-bg {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: 
-        radial-gradient(circle at 20% 30%, rgba(255, 80, 0, 0.15) 0%, transparent 25%),
-        radial-gradient(circle at 80% 70%, rgba(255, 0, 0, 0.15) 0%, transparent 25%);
-      animation: emberMove 15s infinite alternate;
       z-index: -1;
+      overflow: hidden;
     }
-    
-    @keyframes emberMove {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(20px, 20px); }
+
+    .ember {
+      position: absolute;
+      background: radial-gradient(circle, rgba(255,100,0,0.8) 0%, rgba(255,50,0,0) 70%);
+      border-radius: 50%;
+      filter: blur(1px);
+      animation: float linear infinite;
     }
-    
-    /* Header with Floating PFP */
+
+    @keyframes float {
+      0% { transform: translateY(0) translateX(0); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-100vh) translateX(20px); opacity: 0; }
+    }
+
+    /* Header */
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1rem 2rem;
+      background-color: rgba(26, 26, 26, 0.8);
+      backdrop-filter: blur(10px);
       position: relative;
       z-index: 100;
     }
-    
+
     .tool-name {
-      font-size: 2.5rem;
+      font-size: 2rem;
       background: linear-gradient(90deg, #ff0000, #990000);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      text-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
-      letter-spacing: -1px;
+      text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
     }
-    
+
+    /* GitHub PFP */
     .github-pfp {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    
-    .github-pfp img {
-      width: 60px;
-      height: 60px;
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
-      border: 3px solid #ff0000;
-      box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+      border: 2px solid #ff0000;
       transition: all 0.3s ease;
+      cursor: pointer;
     }
-    
+
     .github-pfp:hover {
-      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 0 15px #ff0000;
+      transform: scale(1.05);
     }
-    
-    .github-pfp:hover img {
-      box-shadow: 0 0 30px rgba(255, 0, 0, 0.9);
-    }
-    
+
     /* Search Section */
-    .search-section {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 40vh;
-      justify-content: center;
-      padding: 2rem;
-      position: relative;
-    }
-    
     .search-container {
-      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin: 2rem auto;
+      width: 80%;
       max-width: 600px;
       position: relative;
-      margin-bottom: 2rem;
     }
-    
+
     .search-bar {
       width: 100%;
-      padding: 1rem 1.5rem;
+      padding: 0.8rem 1.2rem;
       border: none;
-      border-radius: 30px;
-      background-color: rgba(42, 42, 42, 0.8);
-      backdrop-filter: blur(10px);
+      border-radius: 25px 0 0 25px;
+      background-color: #2a2a2a;
       color: white;
-      font-size: 1.1rem;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-      transition: all 0.3s ease;
-    }
-    
-    .search-bar:focus {
+      font-size: 1rem;
       outline: none;
-      box-shadow: 0 5px 20px rgba(255, 0, 0, 0.4);
-      transform: translateY(-3px);
     }
-    
+
     .search-button {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: linear-gradient(90deg, #ff0000, #990000);
+      padding: 0.8rem 1.5rem;
       border: none;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
+      border-radius: 0 25px 25px 0;
+      background: linear-gradient(90deg, #ff0000, #990000);
       color: white;
       cursor: pointer;
       transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
-    
+
     .search-button:hover {
-      transform: translateY(-50%) scale(1.1);
-      box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+      background: linear-gradient(90deg, #990000, #ff0000);
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
     }
-    
-    /* Autocomplete */
-    .autocomplete-items {
-      position: absolute;
-      border: 1px solid #ff0000;
-      border-top: none;
-      z-index: 99;
-      top: 100%;
-      left: 0;
-      right: 0;
-      background: rgba(30, 30, 30, 0.95);
-      backdrop-filter: blur(5px);
-      border-radius: 0 0 10px 10px;
-      max-height: 200px;
-      overflow-y: auto;
-      display: none;
-    }
-    
-    .autocomplete-item {
-      padding: 10px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    
-    .autocomplete-item:hover {
-      background: rgba(255, 0, 0, 0.2);
-    }
-    
-    /* Discover Section */
+
+    /* Discover Trends Section */
     .discover-section {
-      width: 100%;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 2rem;
-      background: rgba(26, 26, 26, 0.7);
+      background: rgba(30, 30, 30, 0.8);
       backdrop-filter: blur(5px);
-      border-radius: 15px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-      border-left: 5px solid #ff0000;
+      width: 80%;
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1.5rem;
+      border-radius: 10px;
+      border-left: 4px solid #ff0000;
     }
-    
-    .discover-header {
+
+    .section-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
     }
-    
-    .discover-header h2 {
-      margin: 0;
-      font-size: 1.8rem;
+
+    .section-title {
+      font-size: 1.5rem;
       background: linear-gradient(90deg, #ff0000, #990000);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
     }
-    
+
     .refresh-btn {
       background: rgba(255, 0, 0, 0.2);
-      border: 1px solid #ff0000;
+      border: none;
       color: #ff0000;
       padding: 0.5rem 1rem;
-      border-radius: 20px;
+      border-radius: 5px;
       cursor: pointer;
       transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 5px;
     }
-    
+
     .refresh-btn:hover {
       background: rgba(255, 0, 0, 0.4);
-      transform: rotate(30deg);
     }
-    
-    .trending-tags {
-      display: flex;
-      flex-wrap: wrap;
+
+    /* Trending Topics */
+    .trending-topics {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       gap: 1rem;
+      margin-top: 1rem;
     }
-    
-    .trending-tag {
+
+    .trending-topic {
       background: rgba(42, 42, 42, 0.8);
-      padding: 0.8rem 1.2rem;
-      border-radius: 25px;
+      padding: 1rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
       cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      position: relative;
-      overflow: hidden;
     }
-    
-    .trending-tag::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.3), transparent);
-      transition: all 0.6s ease;
-    }
-    
-    .trending-tag:hover {
+
+    .trending-topic:hover {
       background: rgba(255, 0, 0, 0.2);
-      transform: translateY(-5px);
-      box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+      transform: translateY(-3px);
     }
-    
-    .trending-tag:hover::before {
-      left: 100%;
+
+    .topic-name {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .topic-stats {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: #aaa;
+    }
+
+    /* Trending Posts */
+    .trending-posts {
+      margin-top: 2rem;
+    }
+
+    .post {
+      background: rgba(42, 42, 42, 0.8);
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .post:hover {
+      background: rgba(255, 0, 0, 0.1);
+    }
+
+    .post-content {
+      margin-bottom: 0.5rem;
+    }
+
+    .post-stats {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.8rem;
+      color: #aaa;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 1rem;
+      color: #ff0000;
     }
   </style>
 </head>
 <body>
-  <!-- Header with Logo and GitHub PFP -->
+  <!-- Animated Ember Background -->
+  <div class="ember-bg" id="emberBg"></div>
+
+  <!-- Header -->
   <header>
     <h1 class="tool-name">X-Monitor</h1>
-    <a href="https://github.com/r4tur1" target="_blank" class="github-pfp">
-      <img src="https://avatars.githubusercontent.com/u/YOUR_GITHUB_ID?s=400" alt="GitHub Profile">
+    <a href="https://github.com/r4tur1" target="_blank">
+      <img src="https://avatars.githubusercontent.com/u/YOUR_GITHUB_ID?s=80" alt="GitHub Profile" class="github-pfp">
     </a>
   </header>
 
-  <!-- Main Search Section -->
-  <section class="search-section">
-    <div class="search-container">
-      <input type="text" id="searchInput" class="search-bar" placeholder="Search for trends, hashtags..." autocomplete="off">
-      <button class="search-button">
-        <i class="fas fa-search"></i>
-      </button>
-      <div id="autocompleteList" class="autocomplete-items"></div>
-    </div>
-  </section>
+  <!-- Search Section -->
+  <div class="search-container">
+    <input type="text" id="searchInput" class="search-bar" placeholder="Search for trends, hashtags...">
+    <button class="search-button" onclick="searchTweets()">
+      <i class="fas fa-search"></i>
+    </button>
+  </div>
 
-  <!-- Discover Section -->
+  <!-- Discover Trends Section -->
   <section class="discover-section">
-    <div class="discover-header">
-      <h2><i class="fas fa-fire"></i> Discover Trends</h2>
-      <button class="refresh-btn" id="refreshTrends">
+    <div class="section-header">
+      <h2 class="section-title"><i class="fas fa-fire"></i> Global Trends</h2>
+      <button class="refresh-btn" onclick="fetchTrendingTopics()">
         <i class="fas fa-sync-alt"></i> Refresh
       </button>
     </div>
-    <div class="trending-tags" id="trendingTags">
-      <!-- Trending tags will be loaded here -->
-      <div class="trending-tag">#Bitcoin</div>
-      <div class="trending-tag">#Ethereum</div>
-      <div class="trending-tag">#Web3</div>
-      <div class="trending-tag">#AI</div>
-      <div class="trending-tag">#Crypto</div>
-      <div class="trending-tag">#NFT</div>
+
+    <div class="trending-topics" id="trendingTopics">
+      <!-- Will be populated by JavaScript -->
+      <div class="loading">
+        <i class="fas fa-spinner fa-spin"></i> Loading trends...
+      </div>
+    </div>
+
+    <div class="trending-posts" id="trendingPosts">
+      <!-- Will be populated when a topic is selected -->
     </div>
   </section>
 
   <script>
-    // Autocomplete functionality
-    const searchInput = document.getElementById('searchInput');
-    const autocompleteList = document.getElementById('autocompleteList');
-    const refreshBtn = document.getElementById('refreshTrends');
-    const trendingTags = document.getElementById('trendingTags');
-    
-    // Sample autocomplete data (replace with real API calls)
-    const autocompleteData = [
-      "Bitcoin price",
-      "Ethereum news",
-      "Crypto market",
-      "Web3 development",
-      "NFT trends",
-      "Blockchain technology",
-      "DeFi projects"
-    ];
-    
-    // Trending tags data (replace with real API)
-    const trendingData = [
-      "#Bitcoin", "#Ethereum", "#Web3", "#AI", 
-      "#Crypto", "#NFT", "#DeFi", "#Metaverse"
-    ];
-    
-    // Search input handler
-    searchInput.addEventListener('input', function() {
-      const input = this.value.toLowerCase();
-      autocompleteList.innerHTML = '';
+    // API Configuration
+    const API_URL = "https://x-monitor.onrender.com";
+    let currentTrendingTopic = "";
+
+    // Initialize ember particles
+    function initEmberParticles() {
+      const emberBg = document.getElementById('emberBg');
+      const particleCount = 20;
       
-      if (input.length > 1) {
-        const matches = autocompleteData.filter(item => 
-          item.toLowerCase().includes(input)
-        );
+      for (let i = 0; i < particleCount; i++) {
+        const ember = document.createElement('div');
+        ember.classList.add('ember');
         
-        if (matches.length > 0) {
-          autocompleteList.style.display = 'block';
-          matches.forEach(match => {
-            const item = document.createElement('div');
-            item.classList.add('autocomplete-item');
-            item.textContent = match;
-            item.addEventListener('click', function() {
-              searchInput.value = match;
-              autocompleteList.style.display = 'none';
-              // Here you would call your search function
-            });
-            autocompleteList.appendChild(item);
-          });
-        } else {
-          autocompleteList.style.display = 'none';
-        }
-      } else {
-        autocompleteList.style.display = 'none';
+        // Random properties
+        const size = Math.random() * 10 + 5;
+        const posX = Math.random() * 100;
+        const duration = Math.random() * 20 + 10;
+        const delay = Math.random() * 10;
+        
+        ember.style.width = `${size}px`;
+        ember.style.height = `${size}px`;
+        ember.style.left = `${posX}%`;
+        ember.style.animationDuration = `${duration}s`;
+        ember.style.animationDelay = `${delay}s`;
+        
+        emberBg.appendChild(ember);
       }
-    });
-    
-    // Close autocomplete when clicking outside
-    document.addEventListener('click', function(e) {
-      if (e.target.id !== 'searchInput') {
-        autocompleteList.style.display = 'none';
-      }
-    });
-    
-    // Refresh trending tags
-    refreshBtn.addEventListener('click', function() {
-      // Add loading animation
-      this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Refreshing';
-      
-      // Simulate API call delay
-      setTimeout(() => {
-        refreshTrendingTags();
-        this.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh';
-      }, 1000);
-    });
-    
-    // Function to refresh trending tags with animation
-    function refreshTrendingTags() {
-      // Shuffle array for demo
-      const shuffled = [...trendingData].sort(() => 0.5 - Math.random());
-      
-      trendingTags.innerHTML = '';
-      shuffled.slice(0, 6).forEach(tag => {
-        const tagElement = document.createElement('div');
-        tagElement.classList.add('trending-tag');
-        tagElement.textContent = tag;
-        tagElement.addEventListener('click', function() {
-          searchInput.value = tag;
-          // Here you would trigger search
-        });
-        trendingTags.appendChild(tagElement);
-      });
-      
-      // Animate the refresh
-      trendingTags.style.opacity = '0';
-      setTimeout(() => {
-        trendingTags.style.transition = 'opacity 0.3s ease';
-        trendingTags.style.opacity = '1';
-      }, 10);
     }
-    
-    // Initialize trending tags
-    refreshTrendingTags();
+
+    // Fetch trending topics from Twitter API
+    async function fetchTrendingTopics() {
+      const trendingTopics = document.getElementById('trendingTopics');
+      trendingTopics.innerHTML = `
+        <div class="loading">
+          <i class="fas fa-spinner fa-spin"></i> Loading trends...
+        </div>
+      `;
+
+      try {
+        // Replace with actual API call to your backend
+        const response = await fetch(`${API_URL}/trends`);
+        const data = await response.json();
+        
+        if (data && data.length > 0) {
+          trendingTopics.innerHTML = '';
+          data.slice(0, 10).forEach(topic => {
+            const topicEl = document.createElement('div');
+            topicEl.className = 'trending-topic';
+            topicEl.innerHTML = `
+              <div class="topic-name">${topic.name}</div>
+              <div class="topic-stats">
+                <span>${topic.tweet_volume ? formatNumber(topic.tweet_volume) + ' posts' : 'Trending'}</span>
+              </div>
+            `;
+            topicEl.addEventListener('click', () => showTrendingPosts(topic.name));
+            trendingTopics.appendChild(topicEl);
+          });
+        }
+      } catch (error) {
+        trendingTopics.innerHTML = `
+          <div class="loading">
+            <i class="fas fa-exclamation-circle"></i> Failed to load trends
+          </div>
+        `;
+        console.error("Error fetching trends:", error);
+      }
+    }
+
+    // Show posts for a specific trending topic
+    async function showTrendingPosts(topic) {
+      currentTrendingTopic = topic;
+      const trendingPosts = document.getElementById('trendingPosts');
+      trendingPosts.innerHTML = `
+        <div class="loading">
+          <i class="fas fa-spinner fa-spin"></i> Loading posts about ${topic}...
+        </div>
+      `;
+
+      try {
+        // Replace with actual API call to your backend
+        const response = await fetch(`${API_URL}/trending-posts?q=${encodeURIComponent(topic)}`);
+        const posts = await response.json();
+        
+        if (posts && posts.length > 0) {
+          trendingPosts.innerHTML = `
+            <h3>Top posts about ${topic}</h3>
+            ${posts.map(post => `
+              <div class="post">
+                <div class="post-content">${post.text}</div>
+                <div class="post-stats">
+                  <span><i class="fas fa-heart"></i> ${post.likes || 0}</span>
+                  <span><i class="fas fa-retweet"></i> ${post.retweets || 0}</span>
+                  <span><i class="fas fa-comment"></i> ${post.replies || 0}</span>
+                </div>
+              </div>
+            `).join('')}
+          `;
+        }
+      } catch (error) {
+        trendingPosts.innerHTML = `
+          <div class="loading">
+            <i class="fas fa-exclamation-circle"></i> Failed to load posts
+          </div>
+        `;
+        console.error("Error fetching posts:", error);
+      }
+    }
+
+    // Search tweets
+    async function searchTweets() {
+      const query = document.getElementById('searchInput').value.trim();
+      if (!query) return;
+      
+      // Implement your search functionality here
+      console.log("Searching for:", query);
+    }
+
+    // Helper function to format large numbers
+    function formatNumber(num) {
+      if (num >= 1000000) {
+        return (num / 1000000).toFixed(1) + 'M';
+      }
+      if (num >= 1000) {
+        return (num / 1000).toFixed(1) + 'K';
+      }
+      return num;
+    }
+
+    // Initialize the page
+    window.onload = function() {
+      initEmberParticles();
+      fetchTrendingTopics();
+      
+      // Set up search input
+      document.getElementById('searchInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          searchTweets();
+        }
+      });
+    };
   </script>
 </body>
 </html>
