@@ -1,40 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>X-Monitor</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Add this in head -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </head>
 <body>
-  <!-- Header with Tool Name and GitHub PFP -->
-  <header>
-    <h1 class="tool-name">X-Monitor</h1>
-    <a href="https://github.com/r4tur1" target="_blank" class="github-pfp">
-      <img src="https://avatars.githubusercontent.com/u/your-github-id?s=80" alt="GitHub Profile">
-    </a>
-  </header>
-  <div id="loading" class="loading-indicator">
-  <i class="fas fa-spinner fa-spin"></i> Loading...
-</div>
+  <div class="container">
+    <!-- Search Bar with Animation -->
+    <div class="search-container animate__animated animate__fadeInDown">
+      <input type="text" id="keyword" 
+             class="search-bar" 
+             placeholder="Search (e.g. Bitcoin)"
+             onclick="this.classList.add('search-bar-active')">
+      <button onclick="fetchTweets()" class="search-button pulse">
+        <i class="fas fa-search"></i>
+      </button>
+    </div>
 
-  <!-- Search Bar -->
-  <div class="search-container">
-    <input type="text" id="keyword" placeholder="Search (e.g., Bitcoin)" class="search-bar">
-    <button onclick="fetchTweets()" class="search-button">
-      <i class="fas fa-search"></i>
-    </button>
+    <!-- Trending Section -->
+    <div class="trending-section animate__animated animate__fadeIn">
+      <h3><i class="fas fa-fire"></i> TRENDING</h3>
+      <div class="trending-tags">
+        <span onclick="searchTrending('Bitcoin')">#Bitcoin</span>
+        <span onclick="searchTrending('Ethereum')">#Ethereum</span>
+        <span onclick="searchTrending('NFT')">#NFT</span>
+      </div>
+    </div>
+
+    <!-- Results Container -->
+    <div id="results" class="tweet-container"></div>
   </div>
-
-  <!-- Results Container -->
-  <div id="results" class="tweet-container"></div>
-
-  <!-- Next Page Button -->
-  <button id="nextPage" class="next-page" onclick="loadMore()">
-    Load More <i class="fas fa-arrow-down"></i>
-  </button>
-
-  <script src="script.js"></script>
 </body>
 </html>
