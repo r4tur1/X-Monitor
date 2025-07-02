@@ -64,4 +64,32 @@ function formatTweet(tweet) {
       <small>Likes: ${tweet.public_metrics?.like_count || 0}</small>
     </div>
   `;
+// Trending search handler
+function searchTrending(term) {
+  const searchBar = document.getElementById('keyword');
+  searchBar.value = term;
+  searchBar.classList.add('search-bar-active');
+  fetchTweets();
+}
+
+// Keyboard support (add this after your existing code)
+document.getElementById('keyword').addEventListener('keypress', (e) => {
+  if(e.key === 'Enter') fetchTweets();
+});
+
+// Add animation to new tweets
+function displayTweets(tweets) {
+  const resultsDiv = document.getElementById('results');
+  resultsDiv.innerHTML = '';
+  
+  tweets.forEach((tweet, index) => {
+    const tweetElement = document.createElement('div');
+    tweetElement.className = 'tweet tweet-enter';
+    tweetElement.style.animationDelay = `${index * 0.1}s`;
+    tweetElement.innerHTML = `
+      <p>${tweet.text}</p>
+      <small>❤️ ${tweet.likes} likes</small>
+    `;
+    resultsDiv.appendChild(tweetElement);
+  });
 }
