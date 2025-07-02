@@ -1,14 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Crypto Twitter Monitor</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>X-Monitor</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <h1>Search Crypto Trends</h1>
-  <input type="text" id="keyword" placeholder="e.g., Bitcoin">
-  <button onclick="fetchTweets()">Search</button>
-  <div id="results"></div>
+  <!-- Header with Tool Name and GitHub PFP -->
+  <header>
+    <h1 class="tool-name">X-Monitor</h1>
+    <a href="https://github.com/your-username" target="_blank" class="github-pfp">
+      <img src="https://avatars.githubusercontent.com/u/your-github-id?s=80" alt="GitHub Profile">
+    </a>
+  </header>
+
+  <!-- Search Bar -->
+  <div class="search-container">
+    <input type="text" id="keyword" placeholder="Search (e.g., Bitcoin)" class="search-bar">
+    <button onclick="fetchTweets()" class="search-button">
+      <i class="fas fa-search"></i>
+    </button>
+  </div>
+
+  <!-- Results Container -->
+  <div id="results" class="tweet-container"></div>
+
+  <!-- Next Page Button -->
+  <button id="nextPage" class="next-page" onclick="loadMore()">
+    Load More <i class="fas fa-arrow-down"></i>
+  </button>
+
   <script src="script.js"></script>
 </body>
 </html>
