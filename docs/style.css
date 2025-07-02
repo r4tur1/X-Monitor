@@ -5,7 +5,6 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
 }
 
 /* Header Styles */
@@ -116,87 +115,3 @@ header {
   box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
   transform: translateY(-3px);
 }
-
-/* Animations */
-@keyframes glow {
-  0% { box-shadow: 0 0 5px rgba(255, 0, 0, 0.3); }
-  100% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.6); }
-/* Loading Animation */
-.loading-container {
-  display: none;
-  width: 80%;
-  margin: 1rem auto;
-  gap: 0.5rem;
-}
-
-.loading-bar {
-  height: 20px;
-  background: linear-gradient(90deg, #2a2a2a, #ff0000, #2a2a2a);
-  background-size: 200% 100%;
-  border-radius: 4px;
-  animation: loading 1.5s infinite;
-}
-
-@keyframes loading {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
-
-/* Ripple Effect on Buttons */
-button {
-  position: relative;
-  overflow: hidden;
-}
-
-button:after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 5px;
-  height: 5px;
-  background: rgba(255, 255, 255, 0.5);
-  opacity: 0;
-  border-radius: 100%;
-  transform: scale(1, 1) translate(-50%, -50%);
-  transform-origin: 50% 50%;
-}
-
-button:focus:after {
-  animation: ripple 0.6s ease-out;
-}
-
-@keyframes ripple {
-  0% {
-    transform: scale(0, 0);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(20, 20);
-    opacity: 0;
-}
-
-
-.tweet:hover {
-  animation: glow 1s infinite alternate;
-.live-button {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #ff0000;
-  border: none;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  color: white;
-  font-size: 1.2rem;
-  cursor: pointer;
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
-  transition: all 0.3s ease;
-}
-
-.live-button:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 25px rgba(255, 0, 0, 0.8);
-}
-
