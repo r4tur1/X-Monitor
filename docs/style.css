@@ -179,4 +179,24 @@ button:focus:after {
 
 .tweet:hover {
   animation: glow 1s infinite alternate;
+.live-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #ff0000;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+  transition: all 0.3s ease;
 }
+
+.live-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.8);
+}
+
